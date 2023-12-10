@@ -1,0 +1,21 @@
+table {
+    width: 400px;
+    height: 100px;
+    border: 2px solid green;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    transform: translate(185%, 50%);
+}
+
+th{
+    border: 1px solid green;
+}
+
+td{
+    border: 1px solid green;
+}
+.auth-form-container {
+    top: 50%;
+    transform: translateY(80%);
+}
