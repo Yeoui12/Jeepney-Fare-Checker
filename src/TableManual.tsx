@@ -11,8 +11,8 @@ export const TableManual = (props) => {
     <div>
     <div className='auth-form container'>
     <form className="login-form" onSubmit={handleSubmit}>
-    <button className="proc" type="submit">Select 13C</button>
-    <button className="link-btn" type = "button" onClick={() => props.onFormSwitch('Table13C')}>Input Manual Table</button>
+    <button className="proc" type="submit">Calculate</button>
+    <button className="link-btn2" type = "button" onClick={() => props.onFormSwitch('Table13C')}>Select 13C Route</button>
     </form>
     </div>
     </div>

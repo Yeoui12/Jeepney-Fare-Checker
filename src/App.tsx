@@ -2,9 +2,10 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import jeep from "./images/jeep.jpg"; 
+import jeep from "./images/jeep.png"; 
 import  Table13C  from "./Table13C";
 import  TableManual  from "./TableManual";
+import Navbar from "./Navbar";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -16,18 +17,20 @@ function App() {
 
   return (
     <>
+    <Navbar />
       <div className="hero">
         <img alt="heroImg" className="heroimg1" src={jeep} />
-          <div className="hero-text"><h1>Jeepney Fare Checker</h1>
-              <p>Calculate your fare in a desired distance based from a landmarks' fare in a distance!</p>  
+          <div className="hero-text"><h1>Check Your Fare!</h1>
+              <p>Calculate your fare in a desired distance based from the route list of a Jeep!</p>  
         </div>
       </div>
       {
         currentForm === 'Table13C' ? <Table13C onFormSwitch={toggleForm} /> : <TableManual onFormSwitch={toggleForm} />
-      }
-
+      }  
     </>
   )
 }
+ /**/
+
 
 export default App

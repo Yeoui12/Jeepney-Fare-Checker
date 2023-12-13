@@ -1,5 +1,6 @@
 import './Table13C.css';
 import React, {useState, useContext, useReducer} from "react";
+import calculateFare from './calculateFare';
 
 export const Table13C = (props:any) => {
 
@@ -34,47 +35,75 @@ export const Table13C = (props:any) => {
         landmark: 'Hipodromo',
         fare: 14.00,
       },
+      {
+        meters: 2800,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
+      {
+        meters: 3000,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
+      {
+        meters: 3500,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
+      {
+        meters: 4000,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
+      {
+        meters: 4500,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
+      {
+        meters: 5000,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
+      {
+        meters: 6000,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
+      {
+        meters: 7000,
+        landmark: 'Hipodromo',
+        fare: 14.00,
+      },
     ]; 
  
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      const inputNumber = parseFloat(input); //Parse user input to float
-      
-      //Duplicate original array and sort according to the difference of meters in array by user input to get 4 closest distances to user input distance
-      const sortedByDistance = data13C.slice().sort((a, b) => { return Math.abs(a.meters - inputNumber) - Math.abs(b.meters - inputNumber); } );
-  
-      const closestFourDistances = sortedByDistance.slice(0, 4).map((item) => item.meters); //Get 4 closest distance
-      const closestFourFares = sortedByDistance.slice(0, 4).map((item) => item.fare); // Get 4 closest fare
-      closestFourDistances.sort((a, b) => a - b); //sort distance by smallest closest distance to largest closest distance
-      closestFourFares.sort((a, b) => a - b); //sort fare by fare from smallest closest distance to largest closest distance
-      setClosestDistances(closestFourDistances); //set four closest distances to variable  closestDistances
-      setClosestFares(closestFourFares);  //set fare from four closest distances to variable  closestFares
+      const { closestFourDistances, closestFourFares, calculatedFare } = calculateFare(data13C, input);
 
-      //Lagrange using 4 closest fares and distance (Cubic)
-      const x0: number = closestFourDistances[0];
-      const y0: number = closestFourFares[0];
-
-      const x1: number = closestFourDistances[1];
-      const y1: number = closestFourFares[1];
-      
-      const x2: number = closestFourDistances[2];
-      const y2: number = closestFourFares[2];
-
-      const x3: number = closestFourDistances[3];
-      const y3: number = closestFourFares[3];
-
-      const cubicLagrange: number = ((((inputNumber-x1)/(x0-x1))*((inputNumber-x2)/(x0-x2))*((inputNumber-x3)/(x0-x3)))*y0)+ 
-                                    ((((inputNumber-x0)/(x1-x0))*((inputNumber-x2)/(x1-x2))*((inputNumber-x3)/(x1-x3)))*y1)+
-                                    ((((inputNumber-x0)/(x2-x0))*((inputNumber-x1)/(x2-x1))*((inputNumber-x3)/(x2-x3)))*y2)+
-                                    ((((inputNumber-x0)/(x3-x0))*((inputNumber-x1)/(x3-x1))*((inputNumber-x2)/(x3-x2)))*y3); 
-      setCalculatedFare(cubicLagrange);
+    setClosestDistances(closestFourDistances);
+    setClosestFares(closestFourFares);
+    setCalculatedFare(calculatedFare);
     };
 
     return (
       <>
+      <div className="auth-form container">
+          <form className='login-form' onSubmit={handleSubmit}>
+
+            <label htmlFor="input" className='input'>Enter Distance (meters):</label>
+            <input value={input} onChange={(e) => setInput(e.target.value)} type="input" id="input13c" name="input13c" required className='input13c'/>
+
+            <div className='button-container'>
+            <button className="proc" type="submit"> Calculate </button>
+            </div>
+          </form>
+          </div>
+          <button className="link-btn2" type="button" onClick={() => props.onFormSwitch('TableManual')}>Create Own Route List</button>  
+
         <div>
-          <table>
+          <table className='table13cdesign'>
             <thead>
               <tr>
                 <th>Distance(meters)</th>
@@ -94,27 +123,17 @@ export const Table13C = (props:any) => {
           </table>
         </div>
 
-        <div className="auth-form-container">
-          <form className="login-form" onSubmit={handleSubmit}>
-
-            <label htmlFor="input">Enter distance to find fare</label>
-            <input value={input} onChange={(e) => setInput(e.target.value)} type="input" id="input" name="input" required/>
-
-            <button className="proc" type="submit"> Calculate </button>
-  
-            <button className="link-btn" type="button" onClick={() => props.onFormSwitch('TableManual')}>Input Manual Table
-            </button>
-
-          </form>
-          </div>
-
-          {closestDistances.length > 0 && (
-            <div>
-              <p>Four closest distances in the table:</p>
-                {closestDistances.map((distance, index) => (<p key={index}>{distance} meters</p>))}
-                <p>{calculatedFare?.toFixed(2)}</p> 
-            </div>
-          )}
+        {closestDistances.length > 0 && (
+  <div className='output'>
+    <p>Four closest distances in the table:</p>
+    {closestDistances.map((distance, index) => (
+      <div key={index}>
+        <p>Distance: {distance} meters - Fare: {closestFares[index]}</p>
+      </div>
+    ))}
+    <p>Calculated Fare: {calculatedFare?.toFixed(2)}</p>
+  </div>
+)}
         
       </>
     );
