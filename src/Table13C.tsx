@@ -10,7 +10,7 @@ export const Table13C = (props:any) => {
   const [calculatedFare, setCalculatedFare] = useState<number>();
   const [applyDiscount, setApplyDiscount] = useState(false);
 
-
+  props.onFormSwitch('Table13C');
     const data13C = [
       {
         meters: 0,

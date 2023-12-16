@@ -108,7 +108,7 @@ if (isNaN(userInput) || userInput > Math.max(...manualData.map(item => item.mete
   setClosestFares(closestFourFares);   
   };
 
- 
+  props.onFormSwitch('TableManual');
 
   const [manualData, setManualData] = useState(dataManual);
 
