@@ -6,12 +6,13 @@ import jeep from "./images/jeep.png";
 import  Table13C  from "./Table13C";
 import  TableManual  from "./TableManual";
 import Navbar from "./Navbar";
+import Toggle from "./Toggle";
 
 function App() {
   const [count, setCount] = useState(0);
   
   const [currentForm, setCurrentForm] = useState('Table13C');
-  const toggleForm = (formName) => {
+  const toggleForm = (formName: any) => {
     setCurrentForm(formName);
   }
 
@@ -24,13 +25,14 @@ function App() {
               <p>Calculate your fare in a desired distance based from the route list of a Jeep!</p>  
         </div>
       </div>
+      <Toggle onFormSwitch={toggleForm} />
       {
         currentForm === 'Table13C' ? <Table13C onFormSwitch={toggleForm} /> : <TableManual onFormSwitch={toggleForm} />
       }  
     </>
   )
 }
- /**/
+
 
 
 export default App

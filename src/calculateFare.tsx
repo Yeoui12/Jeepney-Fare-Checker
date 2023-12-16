@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+
 const calculateFare = (tablearray: any, input: any) => {
   const inputNumber: number = parseFloat(input);
 
@@ -47,7 +49,7 @@ const calculateFare = (tablearray: any, input: any) => {
       ((inputNumber - x1) / (x3 - x1)) *
       ((inputNumber - x2) / (x3 - x2)) *
       y3;
-
+      console.log(x0, x1, x2, x3, y0, y1, y2, y3, calculatedFare)
   return {
     closestFourDistances,
     closestFourFares,

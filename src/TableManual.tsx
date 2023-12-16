@@ -1,86 +1,84 @@
-import "./Table13C.css";
+import "./TableManual.css";
 import { useEffect, useState } from "react";
 import calculateFare from "./calculateFare";
 
 const dataManual = [
-  {
-    id: "01",
+ 
+  { id:"1",
     meters: 0,
-    landmark: "Colon",
-    fare: 14.0,
+    landmark: 'Colon',
+    fare: 15.00,
   },
-  {
-    id: "02",
+  {id:"2",
     meters: 550,
-    landmark: "USC-Downtown Campus",
-    fare: 14.0,
+    landmark: 'USC-Downtown Campus',
+    fare: 15.00,
   },
-  {
-    id: "03",
+  {id:"3",
     meters: 1200,
-    landmark: "Zapatera Elementary School",
-    fare: 14.0,
+    landmark: 'Zapatera Elementary School',
+    fare: 15.00,
   },
-  {
-    id: "04",
+  {id:"4",
     meters: 2000,
-    landmark: "Carreta Cemetery",
-    fare: 14.0,
+    landmark: 'Carreta Cemetery',
+    fare: 15.00,
   },
-  {
-    id: "05",
+  {id:"5",
     meters: 2600,
-    landmark: "Hipodromo",
-    fare: 14.0,
+    landmark: 'Hipodromo',
+    fare: 15.00,
   },
-  {
-    id: "06",
-    meters: 2800,
-    landmark: "Hipodromo",
-    fare: 14.0,
-  },
-  {
-    id: "07",
-    meters: 3000,
-    landmark: "Hipodromo",
-    fare: 14.0,
-  },
-  {
-    id: "08",
+  {id:"6",
     meters: 3500,
-    landmark: "Hipodromo",
-    fare: 14.0,
+    landmark: 'Insular Life Cebu Business Center',
+    fare: 15.00,
   },
-  {
-    id: "09",
-    meters: 4000,
-    landmark: "Hipodromo",
-    fare: 14.0,
+  {id:"7",
+    meters: 4800,
+    landmark: 'Waterfront Hotel',
+    fare: 17.00,
   },
-  {
-    id: "10",
-    meters: 4500,
-    landmark: "Hipodromo",
-    fare: 14.0,
+  {id:"8",
+    meters: 5700,
+    landmark: 'Paradise Village Road',
+    fare: 19.25,
   },
-  {
-    id: "11",
-    meters: 5000,
-    landmark: "Hipodromo",
-    fare: 14.0,
+  {id:"9",
+    meters: 5800,
+    landmark: 'UC Banilad Campus',
+    fare: 19.50,
   },
-  {
-    id: "12",
-    meters: 6000,
-    landmark: "Hipodromo",
-    fare: 14.0,
+  {id:"10",
+    meters: 7700,
+    landmark: 'USC - Talamban Campus',
+    fare: 24.25,
   },
-  {
-    id: "13",
-    meters: 7000,
-    landmark: "Hipodromo",
-    fare: 14.0,
+  {id:"11",
+    meters: 8200,
+    landmark: 'Aicila Suites Hotel',
+    fare: 25.50,
   },
+  {id:"12",
+    meters: 9100,
+    landmark: 'Gaisano Grand Mall',
+    fare: 27.75,
+  },
+  {id:"13",
+    meters: 9600,
+    landmark: 'Talamban Elementary School',
+    fare: 29.00,
+  },
+  {id:"14",
+    meters: 9700,
+    landmark: 'Talamban Elementary School',
+    fare: 29.00,
+  },
+  {id:"15",
+    meters: 10500,
+    landmark: 'Tintay Jeepney Terminal',
+    fare: 31.25,
+  }
 ];
 
 const TableManual = (props: any) => {
@@ -88,20 +86,30 @@ const TableManual = (props: any) => {
   const [closestDistances, setClosestDistances] = useState<number[]>([]);
   const [closestFares, setClosestFares] = useState<number[]>([]);
   const [calculatedFare, setCalculatedFare] = useState<number>();
+  const [applyDiscount, setApplyDiscount] = useState(false);
+  const [discountCalculatedFare, setDiscountCalculatedFare] = useState<number>();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    const { closestFourDistances, closestFourFares, calculatedFare } =
-      calculateFare(manualData, input);
+    const userInput = Number(input);
 
-    setClosestDistances(closestFourDistances);
-    setClosestFares(closestFourFares);
-    setCalculatedFare(calculatedFare);
+
+if (isNaN(userInput) || userInput > Math.max(...manualData.map(item => item.meters))) {
+  alert('Invalid input. Please enter a valid distance in meters.');
+  return;
+}
+
+    const { closestFourDistances, closestFourFares, calculatedFare: fare } = calculateFare(manualData, input);
+
+  const discountMultiplier = applyDiscount ? 0.8 : 1;
+  const finalFare = fare * discountMultiplier;
+
+  setCalculatedFare(finalFare);
+  setClosestDistances(closestFourDistances);
+  setClosestFares(closestFourFares);   
   };
 
-  useEffect(() => {
-    console.log(closestDistances);
-  }, [closestDistances]);
+ 
 
   const [manualData, setManualData] = useState(dataManual);
 
@@ -118,49 +126,37 @@ const TableManual = (props: any) => {
   return (
     <>
       <div className="auth-form container">
-        <form className="login-form" onSubmit={handleSubmit}>
-          <label htmlFor="input" className="input">
-            Enter Distance (meters):
-          </label>
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            type="input"
-            id="inputManual"
-            name="inputManual"
-            required
-            className="inputManual"
-          />
+          <form className='login-form' onSubmit={handleSubmit}>
 
-          <div className="button-container">
-            <button className="proc" type="submit">
-              {" "}
-              Calculate{" "}
-            </button>
+            <label htmlFor="input" className='input'>Enter Distance (meters):</label>
+            <input value={input} onChange={(e) => setInput(e.target.value)} type="input" id="input13c" name="input13c" required className='input13c'/>
+
+            <div className='button-container'>
+              <label>
+            <input className="proc2"
+                type="checkbox"
+                checked={applyDiscount}
+                onChange={(e) => setApplyDiscount(e.target.checked)} />20% Discount
+            <button className="proc" type="submit"> Calculate </button>
+            </label>
+            </div>
+
+          </form>
           </div>
-        </form>
-      </div>
-      <button
-        className="link-btn2"
-        type="button"
-        onClick={() => props.onFormSwitch("Table13C")}
-      >
-        Select 13C Route
-      </button>
 
-      <div>
-        <table className="table13cdesign">
-          <thead>
-            <tr>
-              <th>Distance(meters)</th>
-              <th>Landmark</th>
-              <th>Fare (Pesos)</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div className='table-container'>
+          <table className='table13cdesign'>
+            <thead>
+              <tr>
+                <th>Distance (meters)</th>
+                <th>Landmark</th>
+                <th>Fare (Pesos)</th>
+              </tr>
+            </thead>
+            <tbody>
             {manualData.map(({ id, meters, landmark, fare }) => (
               <tr key={id}>
-                <td>
+                <td className="meterinput">
                   <input
                     name="meters"
                     value={meters}
@@ -170,7 +166,7 @@ const TableManual = (props: any) => {
                   />
                 </td>
 
-                <td>
+                <td className="landmarkinput">
                   <input
                     name="landmark"
                     value={landmark}
@@ -183,7 +179,7 @@ const TableManual = (props: any) => {
                 <td>
                   <input
                     name="fare"
-                    value={fare}
+                    value={fare.toFixed(2)}
                     type="text"
                     onChange={(e) => onChangeInput(e, id)}
                     placeholder="0"
@@ -192,23 +188,22 @@ const TableManual = (props: any) => {
               </tr>
             ))}
           </tbody>
-        </table>
-      </div>
-
-      {closestDistances.length > 0 && (
-        <div className="output">
-          <p>Four closest distances in the table:</p>
-          {closestDistances.map((distance, index) => (
-            <div key={index}>
-              <p>
-                Distance: {distance} meters - Fare: {closestFares[index]}
-              </p>
-            </div>
-          ))}
-          <p>Calculated Fare: {calculatedFare?.toFixed(2)}</p>
+          </table>
         </div>
-      )}
-    </>
+
+        {closestDistances.length > 0 && (
+  <div className='output'>
+    <h1>Fare: ₱{calculatedFare?.toFixed(2)}</h1>
+    <h3>4 Closest Distances:</h3>
+    {closestDistances.map((distance, index) => (
+      <div key={index}>
+        <p>{distance} meters - ₱{closestFares[index].toFixed(2)}</p>
+      </div>
+    ))}
+  </div>
+)}
+        
+      </>
   );
 };
 
