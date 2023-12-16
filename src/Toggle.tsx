@@ -12,7 +12,7 @@ export const Toggle = (props:any) => {
       };
 
     return (
-        <>
+        <> 
          <div className='option'>
       <p>13C Route</p>
       <label className='switch'>

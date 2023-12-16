@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 
 const calculateFare = (tablearray: any, input: any) => {
   const inputNumber: number = parseFloat(input);

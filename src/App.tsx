@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 import jeep from "./images/jeep.png"; 
 import  Table13C  from "./Table13C";
@@ -9,7 +7,6 @@ import Navbar from "./Navbar";
 import Toggle from "./Toggle";
 
 function App() {
-  const [count, setCount] = useState(0);
   
   const [currentForm, setCurrentForm] = useState('Table13C');
   const toggleForm = (formName: any) => {

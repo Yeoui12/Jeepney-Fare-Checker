@@ -1,5 +1,5 @@
 import "./TableManual.css";
-import { useEffect, useState } from "react";
+import {useState } from "react";
 import calculateFare from "./calculateFare";
 
 const dataManual = [
@@ -87,7 +87,6 @@ const TableManual = (props: any) => {
   const [closestFares, setClosestFares] = useState<number[]>([]);
   const [calculatedFare, setCalculatedFare] = useState<number>();
   const [applyDiscount, setApplyDiscount] = useState(false);
-  const [discountCalculatedFare, setDiscountCalculatedFare] = useState<number>();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();

@@ -1,5 +1,5 @@
 import './Table13C.css';
-import React, {useState, useContext, useReducer} from "react";
+import {useState} from "react";
 import calculateFare from './calculateFare';
 
 export const Table13C = (props:any) => {
@@ -9,7 +9,7 @@ export const Table13C = (props:any) => {
   const [closestFares, setClosestFares] = useState<number[]>([]);
   const [calculatedFare, setCalculatedFare] = useState<number>();
   const [applyDiscount, setApplyDiscount] = useState(false);
-  const [discountCalculatedFare, setDiscountCalculatedFare] = useState<number>();
+
 
     const data13C = [
       {
