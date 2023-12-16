@@ -82,9 +82,9 @@ export const Table13C = (props:any) => {
       e.preventDefault();
       const { closestFourDistances, closestFourFares, calculatedFare } = calculateFare(data13C, input);
 
-    setClosestDistances(closestFourDistances);
-    setClosestFares(closestFourFares);
-    setCalculatedFare(calculatedFare);
+      setClosestDistances(closestFourDistances);
+      setClosestFares(closestFourFares);
+      setCalculatedFare(calculatedFare);
     };
 
     return (
