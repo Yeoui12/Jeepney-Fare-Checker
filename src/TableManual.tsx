@@ -93,7 +93,7 @@ const TableManual = (props: any) => {
     const userInput = Number(input);
 
 
-if (isNaN(userInput) || userInput > Math.max(...manualData.map(item => item.meters))) {
+if (isNaN(userInput) || userInput > Math.max(...manualData.map(item => item.meters)) || userInput < Math.min(...manualData.map(item => item.meters))) {
   alert('Invalid input. Please enter a valid distance in meters.');
   return;
 }
@@ -178,7 +178,7 @@ if (isNaN(userInput) || userInput > Math.max(...manualData.map(item => item.mete
                 <td>
                   <input
                     name="fare"
-                    value={fare.toFixed(2)}
+                    value={fare}
                     type="text"
                     onChange={(e) => onChangeInput(e, id)}
                     placeholder="0"
@@ -196,7 +196,7 @@ if (isNaN(userInput) || userInput > Math.max(...manualData.map(item => item.mete
     <h3>4 Closest Distances:</h3>
     {closestDistances.map((distance, index) => (
       <div key={index}>
-        <p>{distance} meters - ₱{closestFares[index].toFixed(2)}</p>
+        <p>{distance} meters - ₱{closestFares[index]}</p>
       </div>
     ))}
   </div>

@@ -95,8 +95,8 @@ export const Table13C = (props:any) => {
       e.preventDefault();
       const userInput = Number(input);
 
-  
-  if (isNaN(userInput) || userInput > Math.max(...data13C.map(item => item.meters))) {
+   
+  if (isNaN(userInput) || userInput > Math.max(...data13C.map(item => item.meters)) || userInput < Math.min(...data13C.map(item => item.meters))) {
     alert('Invalid input. Please enter a valid distance in meters.');
     return;
   }
